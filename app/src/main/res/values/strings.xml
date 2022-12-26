@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">WatchFace3</string>
+    <string name="message">Watch face tapped</string>
+    <string name="my_analog_name">My Analog</string>
+    <string name="title_activity_watch_face_config">Configuration</string>
+
+    <!-- Name of watchface style category for selecting the color theme [CHAR LIMIT=20] -->
+    <string name="colors_style_setting">Colors</string>
+
+    <!-- Subtitle for the menu option to select the watch face color theme -->
+    <string name="colors_style_setting_description">Watchface color colorization</string>
+
+    <!-- Subtitle for the menu option to select the watch face color theme -->
+    <string name="shape_style_setting_description">Watchface shape colorization</string>
+
+    <!-- Name of watchface style [CHAR LIMIT=20] -->
+    <string name="ambient_yellow_style_name">Ambient Yellow Style</string>
+
+    <!-- Name of watchface style [CHAR LIMIT=20] -->
+    <string name="ambient_blue_style_name">Ambient BLue Style</string>
+
+    <!-- Name of watchface style [CHAR LIMIT=20] -->
+    <string name="yellow_style_name">Yellow Style</string>
+
+    <!-- Name of watchface style [CHAR LIMIT=20] -->
+    <string name="blue_style_name">Blue Style</string>
+
+    <!-- Name of watchface style category for selecting the color theme [CHAR LIMIT=20] -->
+    <string name="shape_style_setting">Shape</string>
+
+
+
+    <!-- Name of watchface style [CHAR LIMIT=20] -->
+    <string name="circle_shape_style_name">Circle Style</string>
+    <string name="square_shape_style_name">Square Style</string>
+    <string name="triangle_shape_style_name">Triangle Style</string>
+</resources>
