@@ -4,10 +4,10 @@ package com.android.mi.wearable.watchface5.data.watchface
 /**
  * watchface style
  */
-//time大字体
+//三个style
 const val TYPE_1 = 1
-//time小字体
 const val TYPE_2 = 2
+const val TYPE_3 = 3
 
 /**
  * index type

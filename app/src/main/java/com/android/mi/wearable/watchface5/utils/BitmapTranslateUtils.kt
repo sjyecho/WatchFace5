@@ -2,7 +2,6 @@ package com.android.mi.wearable.watchface5.utils
 import com.android.mi.wearable.watchface5.R
 import com.android.mi.wearable.watchface5.data.watchface.*
 import java.util.*
-import kotlin.random.Random
 
 object BitmapTranslateUtils {
     /***
@@ -41,35 +40,17 @@ object BitmapTranslateUtils {
             else -> R.drawable.camera_wf_style1_date_digital_0
         }
     }
-
-    //battery
-    fun currentWfStepStyle1(battery: Int): Int {
-        return when (battery) {
-            0 -> R.drawable.camera_wf_style1_step_digital_0
-            1 -> R.drawable.camera_wf_style1_step_digital_1
-            2 -> R.drawable.camera_wf_style1_step_digital_2
-            3 -> R.drawable.camera_wf_style1_step_digital_3
-            4 -> R.drawable.camera_wf_style1_step_digital_4
-            5 -> R.drawable.camera_wf_style1_step_digital_5
-            6 -> R.drawable.camera_wf_style1_step_digital_6
-            7 -> R.drawable.camera_wf_style1_step_digital_7
-            8 -> R.drawable.camera_wf_style1_step_digital_8
-            9 -> R.drawable.camera_wf_style1_step_digital_9
-            else -> R.drawable.camera_wf_style1_step_digital_0
-        }
-    }
-
     //time  big 和 small
-    private fun digitalToResStyle1(
+    private fun monthAndDayDigitalToResStyle1(
         watchType: Int,
         digital: Int,
-        drawableResArray: Array<Int>,
+        drawableResArray: Array<Int?>,
         i: Int
     ) {
         //时间大字体
         if (watchType == TYPE_1) {
             when (digital) {
-                0 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_0
+                0-> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_0
                 1 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_1
                 2 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_2
                 3 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_3
@@ -96,6 +77,104 @@ object BitmapTranslateUtils {
             }
         }
     }
+
+    //battery
+    fun currentWfStepStyle1(battery: Int): Int {
+        return when (battery) {
+            0 -> R.drawable.camera_wf_style1_step_digital_0
+            1 -> R.drawable.camera_wf_style1_step_digital_1
+            2 -> R.drawable.camera_wf_style1_step_digital_2
+            3 -> R.drawable.camera_wf_style1_step_digital_3
+            4 -> R.drawable.camera_wf_style1_step_digital_4
+            5 -> R.drawable.camera_wf_style1_step_digital_5
+            6 -> R.drawable.camera_wf_style1_step_digital_6
+            7 -> R.drawable.camera_wf_style1_step_digital_7
+            8 -> R.drawable.camera_wf_style1_step_digital_8
+            9 -> R.drawable.camera_wf_style1_step_digital_9
+            else -> R.drawable.camera_wf_style1_step_digital_0
+        }
+    }
+    //time  big 和 small
+    private fun digitalToResStyle1(
+        watchType: Int,
+        digital: Int,
+        drawableResArray: Array<Int?>,
+        i: Int
+    ) {
+        //时间大字体
+        if (watchType == TYPE_1) {
+            when (digital) {
+                0-> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_0
+                1 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_1
+                2 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_2
+                3 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_3
+                4 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_4
+                5 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_5
+                6 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_6
+                7 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_7
+                8 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_8
+                9 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_9
+            }
+            //时间小字体
+        } else {
+            when (digital) {
+                0 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_0
+                1 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_1
+                2 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_2
+                3 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_3
+                4 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_4
+                5 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_5
+                6 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_6
+                7 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_7
+                8 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_8
+                9 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_9
+            }
+        }
+    }
+    //对于月份和日期的处理
+
+
+
+
+
+
+
+
+    //对于时间的处理逻辑
+    fun currentWfHourAndMinuteStyle1(watchType: Int): Array<Int?> {
+        //存放当前时间的数组
+        val drawableResArray = arrayOf(
+            R.drawable.camera_wf_style1_time_big_0,
+            R.drawable.camera_wf_style1_time_big_0,
+            null,
+            R.drawable.camera_wf_style1_time_big_0,
+            R.drawable.camera_wf_style1_time_big_0,)
+        //获取当前的小时
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        //获取当前的分钟
+        val minute = Calendar.getInstance().get(Calendar.MINUTE)
+        //判断当前的是否需要显示分隔符
+        drawableResArray[2] = if (watchType == 1)R.drawable.camera_wf_style1_time_small_colon else null
+        //小时和分钟十位和各位
+        val hourTen  = hour / 10 % 10
+        val hourBit = hour % 10
+        val minuteTen = minute / 10 %10
+        val minuteBit = minute % 10
+        //防止是三个图片
+        digitalToResStyle1(watchType, hourTen, drawableResArray,0)
+        digitalToResStyle1(watchType, hourBit, drawableResArray,1)
+        digitalToResStyle1(watchType, minuteTen, drawableResArray,3)
+        digitalToResStyle1(watchType, minuteBit, drawableResArray,4)
+        return drawableResArray
+    }
+
+
+
+
+
+
+
+
 
 
     fun currentDate(): Int {
