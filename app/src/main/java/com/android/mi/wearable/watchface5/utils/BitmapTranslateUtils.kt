@@ -5,24 +5,117 @@ import java.util.*
 import kotlin.random.Random
 
 object BitmapTranslateUtils {
-     fun currentDate() : Int {
-         val month = Calendar.getInstance().get(
-             Calendar.DAY_OF_WEEK
-         )
-         return when (month) {
-             Calendar.MONDAY -> R.drawable.monday
-             Calendar.TUESDAY -> R.drawable.tuesday
-             Calendar.WEDNESDAY -> R.drawable.wednesday
-             Calendar.THURSDAY -> R.drawable.thursday
-             Calendar.FRIDAY -> R.drawable.friday
-             Calendar.SATURDAY -> R.drawable.saturday
-             Calendar.SUNDAY -> R.drawable.sunday
-             else -> R.drawable.monday
-         }
-     }
+    /***
+    相册表盘style1
+     ***/
+//weekday
+    fun cameraWfWeekdayStyle1(): Int {
+        val weekday = Calendar.getInstance().get(
+            Calendar.DAY_OF_WEEK
+        )
+        return when (weekday) {
+            Calendar.MONDAY -> R.drawable.camera_wf_style1_week_1
+            Calendar.TUESDAY -> R.drawable.camera_wf_style1_week_2
+            Calendar.WEDNESDAY -> R.drawable.camera_wf_style1_week_3
+            Calendar.THURSDAY -> R.drawable.camera_wf_style1_week_4
+            Calendar.FRIDAY -> R.drawable.camera_wf_style1_week_5
+            Calendar.SATURDAY -> R.drawable.camera_wf_style1_week_6
+            Calendar.SUNDAY -> R.drawable.camera_wf_style1_week_7
+            else -> R.drawable.camera_wf_style1_week_1
+        }
+    }
+
+    //mouth and day
+    fun currentWfMonthAndDayStyle1(mouth: Int): Int {
+        return when (mouth) {
+            0 -> R.drawable.camera_wf_style1_date_digital_0
+            1 -> R.drawable.camera_wf_style1_date_digital_1
+            2 -> R.drawable.camera_wf_style1_date_digital_2
+            3 -> R.drawable.camera_wf_style1_date_digital_3
+            4 -> R.drawable.camera_wf_style1_date_digital_4
+            5 -> R.drawable.camera_wf_style1_date_digital_5
+            6 -> R.drawable.camera_wf_style1_date_digital_6
+            7 -> R.drawable.camera_wf_style1_date_digital_7
+            8 -> R.drawable.camera_wf_style1_date_digital_8
+            9 -> R.drawable.camera_wf_style1_date_digital_9
+            else -> R.drawable.camera_wf_style1_date_digital_0
+        }
+    }
+
+    //battery
+    fun currentWfStepStyle1(battery: Int): Int {
+        return when (battery) {
+            0 -> R.drawable.camera_wf_style1_step_digital_0
+            1 -> R.drawable.camera_wf_style1_step_digital_1
+            2 -> R.drawable.camera_wf_style1_step_digital_2
+            3 -> R.drawable.camera_wf_style1_step_digital_3
+            4 -> R.drawable.camera_wf_style1_step_digital_4
+            5 -> R.drawable.camera_wf_style1_step_digital_5
+            6 -> R.drawable.camera_wf_style1_step_digital_6
+            7 -> R.drawable.camera_wf_style1_step_digital_7
+            8 -> R.drawable.camera_wf_style1_step_digital_8
+            9 -> R.drawable.camera_wf_style1_step_digital_9
+            else -> R.drawable.camera_wf_style1_step_digital_0
+        }
+    }
+
+    //time  big 和 small
+    private fun digitalToResStyle1(
+        watchType: Int,
+        digital: Int,
+        drawableResArray: Array<Int>,
+        i: Int
+    ) {
+        //时间大字体
+        if (watchType == TYPE_1) {
+            when (digital) {
+                0 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_0
+                1 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_1
+                2 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_2
+                3 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_3
+                4 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_4
+                5 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_5
+                6 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_6
+                7 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_7
+                8 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_8
+                9 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_big_9
+            }
+            //时间小字体
+        } else {
+            when (digital) {
+                0 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_0
+                1 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_1
+                2 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_2
+                3 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_3
+                4 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_4
+                5 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_5
+                6 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_6
+                7 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_7
+                8 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_8
+                9 -> drawableResArray[i] = R.drawable.camera_wf_style1_time_small_9
+            }
+        }
+    }
 
 
-    fun currentAmbientMonth(watchType: Int) : Int {
+    fun currentDate(): Int {
+        val month = Calendar.getInstance().get(
+            Calendar.DAY_OF_WEEK
+        )
+        return when (month) {
+            Calendar.MONDAY -> R.drawable.monday
+            Calendar.TUESDAY -> R.drawable.tuesday
+            Calendar.WEDNESDAY -> R.drawable.wednesday
+            Calendar.THURSDAY -> R.drawable.thursday
+            Calendar.FRIDAY -> R.drawable.friday
+            Calendar.SATURDAY -> R.drawable.saturday
+            Calendar.SUNDAY -> R.drawable.sunday
+            else -> R.drawable.monday
+        }
+    }
+
+
+    fun currentAmbientMonth(watchType: Int): Int {
         val month = Calendar.getInstance().get(
             Calendar.MONTH
         )
@@ -44,8 +137,7 @@ object BitmapTranslateUtils {
     }
 
 
-
-    fun currentMonth() : Int {
+    fun currentMonth(): Int {
         val month = Calendar.getInstance().get(
             Calendar.MONTH
         )
@@ -70,7 +162,7 @@ object BitmapTranslateUtils {
         val numberArray = IntArray(2)
         val remainder = value / 10
         val modValue = value % 10
-        if (remainder == 0){
+        if (remainder == 0) {
             numberArray[0] = 0
         } else {
             numberArray[0] = remainder
@@ -80,24 +172,24 @@ object BitmapTranslateUtils {
     }
 
 
-    fun currentBatterNumber(number: Int): Int{
-       return when (number){
-           0 -> R.drawable.battery0
-           1 -> R.drawable.battery1
-           2 -> R.drawable.battery2
-           3 -> R.drawable.battery3
-           4 -> R.drawable.battery4
-           5 -> R.drawable.battery5
-           6 -> R.drawable.battery6
-           7 -> R.drawable.battery7
-           8 -> R.drawable.battery8
-           9 -> R.drawable.battery9
-           else -> R.drawable.battery0
+    fun currentBatterNumber(number: Int): Int {
+        return when (number) {
+            0 -> R.drawable.battery0
+            1 -> R.drawable.battery1
+            2 -> R.drawable.battery2
+            3 -> R.drawable.battery3
+            4 -> R.drawable.battery4
+            5 -> R.drawable.battery5
+            6 -> R.drawable.battery6
+            7 -> R.drawable.battery7
+            8 -> R.drawable.battery8
+            9 -> R.drawable.battery9
+            else -> R.drawable.battery0
         }
     }
 
-    fun currentTodayNumber(number: Int,watchType: Int): Int{
-        return when (number){
+    fun currentTodayNumber(number: Int, watchType: Int): Int {
+        return when (number) {
             0 -> if (watchType == TYPE_1) R.drawable.date_yellow0 else R.drawable.date_blue0
             1 -> if (watchType == TYPE_1) R.drawable.date_yellow1 else R.drawable.date_blue1
             2 -> if (watchType == TYPE_1) R.drawable.date_yellow2 else R.drawable.date_blue2
@@ -112,8 +204,8 @@ object BitmapTranslateUtils {
         }
     }
 
-    fun currentAmbientTodayNumber(number: Int,watchType: Int): Int{
-        return when (number){
+    fun currentAmbientTodayNumber(number: Int, watchType: Int): Int {
+        return when (number) {
             0 -> if (watchType == TYPE_1) R.drawable.date_ambient_yellow0 else R.drawable.date_ambient_blue0
             1 -> if (watchType == TYPE_1) R.drawable.date_ambient_yellow1 else R.drawable.date_ambient_blue1
             2 -> if (watchType == TYPE_1) R.drawable.date_ambient_yellow2 else R.drawable.date_ambient_blue2
@@ -129,34 +221,34 @@ object BitmapTranslateUtils {
     }
 
 
-    fun currentAmbientIndexRes(indexType: Int,watchType: Int): Int{
-        return when (indexType){
-            CIRCLE_TYPE -> if (watchType == TYPE_1) R.drawable.ambient_circle_index1 else  R.drawable.ambient_circle_index2
-            SQUARE_TYPE -> if (watchType == TYPE_1) R.drawable.ambient_square_index1 else  R.drawable.ambient_square_index2
-            TRIANGLE_TYPE -> if (watchType == TYPE_1) R.drawable.ambient_triangle_index1 else  R.drawable.ambient_triangle_index2
-            else -> if (watchType == TYPE_1) R.drawable.ambient_circle_index1 else  R.drawable.ambient_circle_index2
+    fun currentAmbientIndexRes(indexType: Int, watchType: Int): Int {
+        return when (indexType) {
+            CIRCLE_TYPE -> if (watchType == TYPE_1) R.drawable.ambient_circle_index1 else R.drawable.ambient_circle_index2
+            SQUARE_TYPE -> if (watchType == TYPE_1) R.drawable.ambient_square_index1 else R.drawable.ambient_square_index2
+            TRIANGLE_TYPE -> if (watchType == TYPE_1) R.drawable.ambient_triangle_index1 else R.drawable.ambient_triangle_index2
+            else -> if (watchType == TYPE_1) R.drawable.ambient_circle_index1 else R.drawable.ambient_circle_index2
         }
     }
 
 
-    fun currentAmbientHourHandRes(watchType: Int): Int{
-        return when (watchType){
+    fun currentAmbientHourHandRes(watchType: Int): Int {
+        return when (watchType) {
             TYPE_1 -> R.drawable.hour_ambient1
             TYPE_2 -> R.drawable.hour_ambient2
             else -> R.drawable.hour_ambient1
         }
     }
 
-    fun currentAmbientMinuteHandRes(watchType: Int): Int{
-        return when (watchType){
+    fun currentAmbientMinuteHandRes(watchType: Int): Int {
+        return when (watchType) {
             TYPE_1 -> R.drawable.minute_ambient1
             TYPE_2 -> R.drawable.minute_ambient2
             else -> R.drawable.minute_ambient1
         }
     }
 
-    fun currentSecondsHandShadowRes(indexType: Int): Int{
-        return when (indexType){
+    fun currentSecondsHandShadowRes(indexType: Int): Int {
+        return when (indexType) {
             CIRCLE_TYPE -> R.drawable.seconds_circle_shadow
             SQUARE_TYPE -> R.drawable.seconds_square_shadow
             TRIANGLE_TYPE -> R.drawable.seconds_triangle_shadow
@@ -165,8 +257,8 @@ object BitmapTranslateUtils {
     }
 
 
-    fun currentFrameRes(indexType: Int, watchType: Int): Int{
-        return when (indexType){
+    fun currentFrameRes(indexType: Int, watchType: Int): Int {
+        return when (indexType) {
             CIRCLE_TYPE -> if (watchType == TYPE_1) R.drawable.circle_frame_yellow else R.drawable.circle_frame_blue
             SQUARE_TYPE -> if (watchType == TYPE_1) R.drawable.square_frame_yellow else R.drawable.square_frame_blue
             TRIANGLE_TYPE -> if (watchType == TYPE_1) R.drawable.triangle_frame_yellow else R.drawable.triangle_frame_blue
@@ -174,8 +266,8 @@ object BitmapTranslateUtils {
         }
     }
 
-    fun currentFrameShadowRes(indexType: Int): Int{
-        return when (indexType){
+    fun currentFrameShadowRes(indexType: Int): Int {
+        return when (indexType) {
             CIRCLE_TYPE -> R.drawable.frame_shadow1
             SQUARE_TYPE -> R.drawable.frame_shadow2
             TRIANGLE_TYPE -> R.drawable.frame_shadow3
@@ -184,16 +276,16 @@ object BitmapTranslateUtils {
     }
 
 
-    fun currentBgRes(indexType: Int, watchType: Int): Int{
-        return when (indexType){
+    fun currentBgRes(indexType: Int, watchType: Int): Int {
+        return when (indexType) {
             CIRCLE_TYPE -> if (watchType == TYPE_1) R.drawable.index_bg_mask11 else R.drawable.index_bg_mask2
-            SQUARE_TYPE,TRIANGLE_TYPE -> if (watchType == TYPE_1) R.drawable.index_bg_mask1 else R.drawable.index_bg_mask2
+            SQUARE_TYPE, TRIANGLE_TYPE -> if (watchType == TYPE_1) R.drawable.index_bg_mask1 else R.drawable.index_bg_mask2
             else -> if (watchType == TYPE_1) R.drawable.index_bg_mask1 else R.drawable.index_bg_mask2
         }
     }
 
     fun currentColorItemPosition(id: String): Int {
-        return when(id){
+        return when (id) {
             ColorStyleIdAndResourceIds.YELLOW.id -> 0
             ColorStyleIdAndResourceIds.BLUE.id -> 1
             else -> 0
@@ -202,7 +294,7 @@ object BitmapTranslateUtils {
 
 
     fun currentShapeItemPosition(id: String): Int {
-        return when(id){
+        return when (id) {
             ShapeStyleIdAndResourceIds.CIRCLE.id -> 0
             ShapeStyleIdAndResourceIds.SQUARE.id -> 1
             ShapeStyleIdAndResourceIds.TRIANGLE.id -> 2
@@ -211,8 +303,8 @@ object BitmapTranslateUtils {
     }
 
 
-    fun nextResId(currentId: String): String{
-        return when (currentId){
+    fun nextResId(currentId: String): String {
+        return when (currentId) {
             ShapeStyleIdAndResourceIds.CIRCLE.id -> ShapeStyleIdAndResourceIds.SQUARE.id
             ShapeStyleIdAndResourceIds.SQUARE.id -> ShapeStyleIdAndResourceIds.TRIANGLE.id
             ShapeStyleIdAndResourceIds.TRIANGLE.id -> ShapeStyleIdAndResourceIds.CIRCLE.id
