@@ -44,7 +44,6 @@ const val POSITION_STYLE_SETTING = "position_style_setting"
  */
 fun createUserStyleSchema(context: Context): UserStyleSchema {
     //相册表盘对于位置样式的选择
-
     // 1. Allows user to change the color styles of the watch face (if any are available).
     val colorShapeStyleSetting =
         UserStyleSetting.ListUserStyleSetting(

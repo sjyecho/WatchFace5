@@ -16,7 +16,6 @@
 package com.android.mi.wearable.watchface5.data.watchface
 
 import android.content.Context
-import android.graphics.drawable.Icon
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.wear.watchface.style.UserStyleSetting
@@ -43,6 +42,18 @@ const val BLUE_COLOR_STYLE_ID = "blue_style_id"
 private const val BLUE_COLOR_STYLE_NAME_RESOURCE_ID = R.string.blue_style_name
 //private const val GREEN_COLOR_STYLE_ICON_ID = R.drawable.complication_left_style1
 
+/**
+ * 相册表盘的样式
+ */
+const val ONE_STYLE_ID = "one_style_id"
+private const val ONE_STYLE_NAME_RESOURCE_ID = R.string.one_style_name
+
+const val TWO_STYLE_ID = "two_style_id"
+private const val TWO_STYLE_NAME_RESOURCE_ID = R.string.two_style_name
+
+const val THREE_STYLE_ID = "three_style_id"
+private const val THREE_STYLE_NAME_RESOURCE_ID = R.string.three_style_name
+
 
 /**
  * Represents watch face color style options the user can select (includes the unique id, the
@@ -56,39 +67,25 @@ private const val BLUE_COLOR_STYLE_NAME_RESOURCE_ID = R.string.blue_style_name
 enum class ColorStyleIdAndResourceIds(
     val id: String,
     @StringRes val nameResourceId: Int,
-    @DrawableRes val hourHandRight: Int,
-    @DrawableRes val hourHandLeft: Int,
-    @DrawableRes val hourHandShadow: Int,
-    @DrawableRes val minuteHandRight: Int,
-    @DrawableRes val minuteHandLeft: Int,
-    @DrawableRes val minuteHandShadow: Int,
-    @DrawableRes val pointHand: Int,
     @DrawableRes val watchFaceStyle: Int,
 ) {
-    YELLOW(
-        id = YELLOW_COLOR_STYLE_ID,
-        nameResourceId = YELLOW_COLOR_STYLE_NAME_RESOURCE_ID,
-        hourHandRight = R.drawable.hour_hand_right1,
-        hourHandLeft = R.drawable.hour_hand_left1,
-        hourHandShadow = R.drawable.hour_hand_shadow,
-        minuteHandRight = R.drawable.minute_right_hand1,
-        minuteHandLeft = R.drawable.minute_left_hand1,
-        minuteHandShadow = R.drawable.minute_hand_shadow,
-        pointHand = R.drawable.hand_point,
+    //相册表盘样式
+    STYLE1(
+        id = ONE_STYLE_ID,
+        nameResourceId = ONE_STYLE_NAME_RESOURCE_ID,
         watchFaceStyle = TYPE_1,
     ),
 
-    BLUE(
-        id = BLUE_COLOR_STYLE_ID,
-        nameResourceId = BLUE_COLOR_STYLE_NAME_RESOURCE_ID,
-        hourHandRight = R.drawable.hour_hand_right2,
-        hourHandLeft = R.drawable.hour_hand_left2,
-        hourHandShadow = R.drawable.hour_hand_shadow,
-        minuteHandRight = R.drawable.minute_right_hand2,
-        minuteHandLeft = R.drawable.minute_left_hand2,
-        minuteHandShadow = R.drawable.minute_hand_shadow,
-        pointHand = R.drawable.hand_point,
+    STYLE2(
+        id = TWO_STYLE_ID,
+        nameResourceId = TWO_STYLE_NAME_RESOURCE_ID,
         watchFaceStyle = TYPE_2,
+    ),
+
+    STYLE3(
+        id = THREE_STYLE_ID,
+        nameResourceId = THREE_STYLE_NAME_RESOURCE_ID,
+        watchFaceStyle = TYPE_3
     );
 
     companion object {
@@ -98,9 +95,10 @@ enum class ColorStyleIdAndResourceIds(
         fun getColorStyleConfig(id: String): ColorStyleIdAndResourceIds {
             return when (id) {
 //                AMBIENT.id -> AMBIENT
-                YELLOW.id -> YELLOW
-                BLUE.id -> BLUE
-                else -> YELLOW
+                STYLE1.id -> STYLE1
+                STYLE2.id -> STYLE2
+                STYLE3.id -> STYLE3
+                else -> STYLE1
             }
         }
 

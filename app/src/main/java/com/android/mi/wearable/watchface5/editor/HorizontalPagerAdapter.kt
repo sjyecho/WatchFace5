@@ -18,10 +18,10 @@ class HorizontalPagerAdapter (private val listener: IComplicationClick,val conte
     private var mCurrentItem: Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0){
-            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_watch_face_config_style, parent, false)
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_watch_face_config_color, parent, false)
             StyleViewHolder(itemView)
         }else{
-            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_watch_face_config_color, parent, false)
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_watch_face_config_style, parent, false)
             ColorViewHolder(itemView)
 
         }

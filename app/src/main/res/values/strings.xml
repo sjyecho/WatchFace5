@@ -28,6 +28,11 @@
     <!-- Name of watchface style category for selecting the color theme [CHAR LIMIT=20] -->
     <string name="shape_style_setting">Shape</string>
 
+<!--相册表盘id-->
+    <string name="one_style_name">One Style</string>
+    <string name="two_style_name">Two Style</string>
+    <string name="three_style_name">Three Style</string>
+
 
 
     <!-- Name of watchface style [CHAR LIMIT=20] -->

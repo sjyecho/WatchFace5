@@ -48,7 +48,7 @@ class WatchFace5ConfigActivity : ComponentActivity(), IComplicationClick {
     override fun onColorPagerChange(isUp: Boolean){
         val colorStyleIdAndResourceIdsList = enumValues<ColorStyleIdAndResourceIds>()
         currentColorPosition = if (isUp){
-            if (currentColorPosition == 1) 1 else (currentColorPosition + 1)
+            if (currentColorPosition == 2) 2 else (currentColorPosition + 1)
         }else{
             if (currentColorPosition == 0) 0 else (currentColorPosition - 1)
         }
