@@ -28,6 +28,12 @@ import com.android.mi.wearable.watchface5.data.watchface.ShapeStyleIdAndResource
 const val COLOR_STYLE_SETTING = "color_style_setting"
 
 const val SHAPE_STYLE_SETTING = "shape_style_setting"
+
+//相册表盘的style
+const val POSITION_STYLE_SETTING = "position_style_setting"
+
+
+
 //const val DRAW_HOUR_PIPS_STYLE_SETTING = "draw_hour_pips_style_setting"
 //const val WATCH_HAND_LENGTH_STYLE_SETTING = "watch_hand_length_style_setting"
 
@@ -37,6 +43,8 @@ const val SHAPE_STYLE_SETTING = "shape_style_setting"
  * watch face listens for a flow from the watch face API data layer and updates the watch face.
  */
 fun createUserStyleSchema(context: Context): UserStyleSchema {
+    //相册表盘对于位置样式的选择
+
     // 1. Allows user to change the color styles of the watch face (if any are available).
     val colorShapeStyleSetting =
         UserStyleSetting.ListUserStyleSetting(

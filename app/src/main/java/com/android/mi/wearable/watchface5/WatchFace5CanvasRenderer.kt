@@ -4,26 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.*
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
 import android.os.BatteryManager
-import android.text.format.DateFormat
-import android.text.method.MovementMethod
 import android.util.Log
 import android.view.SurfaceHolder
-import android.view.animation.Animation.RESTART
-import android.view.animation.RotateAnimation
-import androidx.core.content.ContextCompat.registerReceiver
 import androidx.core.graphics.withRotation
 import androidx.core.graphics.withScale
 import androidx.wear.watchface.*
-import androidx.wear.watchface.complications.data.*
-import androidx.wear.watchface.complications.rendering.CanvasComplicationDrawable
-import androidx.wear.watchface.complications.rendering.ComplicationDrawable
 import androidx.wear.watchface.style.CurrentUserStyleRepository
 import androidx.wear.watchface.style.UserStyle
 import androidx.wear.watchface.style.UserStyleSetting
-import androidx.wear.watchface.style.WatchFaceLayer
 import com.android.mi.wearable.watchface5.data.watchface.ColorStyleIdAndResourceIds
 import com.android.mi.wearable.watchface5.data.watchface.ShapeStyleIdAndResourceIds
 import com.android.mi.wearable.watchface5.data.watchface.WatchFaceData
@@ -137,11 +126,11 @@ class WatchFace3CanvasRenderer(
         zonedDateTime: ZonedDateTime,
         sharedAssets: AnalogSharedAssets
     ) {
-        drawBackground(canvas,bounds,zonedDateTime)
-
-        if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.COMPLICATIONS_OVERLAY)) {
-            drawClockHands(canvas, bounds, zonedDateTime)
-        }
+       // drawBackground(canvas,bounds,zonedDateTime)
+        drawLayoutStyle1(canvas,bounds,zonedDateTime)
+//        if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.COMPLICATIONS_OVERLAY)) {
+//            drawClockHands(canvas, bounds, zonedDateTime)
+//        }
     }
 
     private fun drawBackground(canvas: Canvas, bounds: Rect,zonedDateTime: ZonedDateTime) {
@@ -344,6 +333,137 @@ class WatchFace3CanvasRenderer(
             }
         }
     }
+
+    //绘制样式
+    private fun drawLayoutStyle1(canvas: Canvas, bounds: Rect, time: ZonedDateTime){
+        //绘制背景图片
+        //draw background
+        val ambientIndexRes = BitmapTranslateUtils.currentAmbientIndexRes(watchFaceData.shapeStyle.shapeType,watchFaceData.activeColorStyle.watchFaceStyle)
+        val ambientBitmap = BitmapFactory.decodeResource(context.resources, ambientIndexRes)
+        canvas.drawBitmap(ambientBitmap,null,bounds,clockPaint)
+
+        //绘制电池的样式
+        //获取当前的电池电量
+        val batteryStatus: Intent? =
+            context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        var batteryPct: Float? = batteryStatus?.let { intent ->
+            val level: Int = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+            val scale: Int = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+            ((level * 100 / scale.toFloat()))
+        }
+        val batteryValue = batteryPct?.toInt() ?: 0
+        //绘制当前的电量
+        val batteryRes = BitmapTranslateUtils.currentBatteryPercentToRes(batteryPct)
+        val batteryBitmap = BitmapFactory.decodeResource(context.resources,batteryRes)
+        canvas.drawBitmap(
+            batteryBitmap,
+            313.88f,
+            144.37f,
+            clockPaint
+        )
+
+        //绘制时间的样式
+        val data = BitmapTranslateUtils.currentMonthAndDayStyle1(watchFaceData.activeColorStyle.watchFaceStyle)
+        //绘制月份高位
+        val monthTen = BitmapFactory.decodeResource(context.resources,data[0])
+        canvas.drawBitmap(
+            monthTen,
+            209.57f,
+            144.19f,
+            clockPaint
+        )
+        //绘制月份低位
+        val monthBit = BitmapFactory.decodeResource(context.resources,data[1])
+        canvas.drawBitmap(
+            monthBit,
+            228.91f,
+            144.19f,
+            clockPaint
+        )
+        //绘制分隔符
+        val dataSpit = BitmapFactory.decodeResource(context.resources,data[2])
+        canvas.drawBitmap(
+            dataSpit,
+            247.45f,
+            144.75f,
+            clockPaint
+        )
+        //绘制日期高位
+        val dayTen = BitmapFactory.decodeResource(context.resources,data[3])
+        canvas.drawBitmap(
+            dayTen,
+            258.39f,
+            144.19f,
+            clockPaint
+        )
+        //绘制日期低位
+        val dayBit = BitmapFactory.decodeResource(context.resources,data[4])
+        canvas.drawBitmap(
+            dayBit,
+            277.53f,
+            144.19f,
+            clockPaint
+        )
+
+
+        //绘制time的样式
+        val mTime = BitmapTranslateUtils.currentHourAndMinuteStyle1(watchFaceData.activeColorStyle.watchFaceStyle)
+        //绘制小时的十位
+        val hourTen = BitmapFactory.decodeResource(context.resources, mTime[0])
+        canvas.drawBitmap(
+            hourTen,
+            83.35f,
+            84.86f,
+            clockPaint
+        )
+        //绘制小时的个位
+        val hourBit = BitmapFactory.decodeResource(context.resources, mTime[1])
+        canvas.drawBitmap(
+            hourBit,
+            151.74f,
+            84.86f,
+            clockPaint
+        )
+        //绘制冒号
+        val timeColon = BitmapFactory.decodeResource(context.resources, mTime[2])
+        canvas.drawBitmap(
+            timeColon,
+            226.7f,
+            80.86f,
+            clockPaint
+        )
+        //绘制分钟的十位
+        val minuteTen = BitmapFactory.decodeResource(context.resources, mTime[3])
+        canvas.drawBitmap(
+            minuteTen,
+            257.51f,
+            84.86f,
+            clockPaint
+        )
+        //绘制分钟的个位
+        val minuteBit = BitmapFactory.decodeResource(context.resources, mTime[4])
+        canvas.drawBitmap(
+            minuteBit,
+            325.98f,
+            84.86f,
+            clockPaint
+        )
+
+        //绘制星期
+        val weekRes = BitmapTranslateUtils.currentWeekdayStyle1()
+        val weekBitmap = BitmapFactory.decodeResource(context.resources,weekRes)
+        canvas.drawBitmap(
+            weekBitmap,
+            126.54f,
+            143.1f,
+            clockPaint
+        )
+
+    }
+
+
+
+
 
 
     private fun drawClockHands(canvas: Canvas, bounds: Rect, zonedDateTime: ZonedDateTime) {
