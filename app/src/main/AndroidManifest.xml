@@ -20,7 +20,7 @@
             android:value="true" />
 
         <service
-            android:name=".WatchFaceAlbumService"
+            android:name="com.android.mi.wearable.watchfacealbum.WatchFaceAlbumService"
             android:exported="true"
             android:label="AlbumWatchFace"
             android:permission="android.permission.BIND_WALLPAPER">
@@ -61,7 +61,7 @@
         </service>
 
         <activity
-            android:name=".editor.WatchFace5ConfigActivity"
+            android:name="com.android.mi.wearable.watchfacealbum.editor.WatchFace5ConfigActivity"
             android:exported="true"
             android:label="@string/title_activity_watch_face_config">
 

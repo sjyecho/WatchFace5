@@ -1,17 +1,12 @@
-package com.android.mi.wearable.watchface5
+package com.android.mi.wearable.watchfacealbum
 
 import android.view.SurfaceHolder
 import androidx.wear.watchface.*
 import androidx.wear.watchface.style.CurrentUserStyleRepository
-import androidx.wear.watchface.style.UserStyle
 import androidx.wear.watchface.style.UserStyleSchema
-import androidx.wear.watchface.style.UserStyleSetting
-import com.android.mi.wearable.watchface5.utils.BitmapTranslateUtils
-import com.android.mi.wearable.watchface5.utils.SHAPE_STYLE_SETTING
-import com.android.mi.wearable.watchface5.utils.createUserStyleSchema
+import com.android.mi.wearable.watchfacealbum.utils.createUserStyleSchema
 
 class WatchFaceAlbumService : WatchFaceService(){
-    private lateinit var shapeStyleKey: UserStyleSetting.ListUserStyleSetting
     private lateinit var mCurrentUserStyleRepository: CurrentUserStyleRepository
 
     override fun createUserStyleSchema(): UserStyleSchema = createUserStyleSchema(context = applicationContext)
@@ -34,11 +29,10 @@ class WatchFaceAlbumService : WatchFaceService(){
         )
 
         //Creates the watch face
-        val watchFace = WatchFace(
+        return WatchFace(
             watchFaceType = WatchFaceType.DIGITAL,
             renderer = renderer
         )
-        return watchFace
     }
 
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.mi.wearable.watchface5.data.watchface
+package com.android.mi.wearable.watchfacealbum.data.watchface
 
 import android.content.Context
 import androidx.annotation.DrawableRes
@@ -21,27 +21,6 @@ import androidx.annotation.StringRes
 import androidx.wear.watchface.style.UserStyleSetting
 import androidx.wear.watchface.style.UserStyleSetting.ListUserStyleSetting
 import com.android.mi.wearable.watchface5.R
-
-// Defaults for all styles.
-// X_COLOR_STYLE_ID - id in watch face database for each style id.
-// X_COLOR_STYLE_NAME_RESOURCE_ID - String name to display in the user settings UI for the style.
-// X_COLOR_STYLE_ICON_ID - Icon to display in the user settings UI for the style.
-const val AMBIENT_YELLOW_COLOR_STYLE_ID = "ambient_yellow_style_id"
-private const val AMBIENT_YELLOW_COLOR_STYLE_NAME_RESOURCE_ID = R.string.ambient_yellow_style_name
-//private const val AMBIENT_YELLOW_COLOR_STYLE_ICON_ID = R.drawable.complication_left_style1
-
-const val AMBIENT_BLUE_COLOR_STYLE_ID = "ambient_blue_style_id"
-private const val AMBIENT_BLUE_COLOR_STYLE_NAME_RESOURCE_ID = R.string.ambient_blue_style_name
-//private const val AMBIENT_BLUE_COLOR_STYLE_ICON_ID = R.drawable.complication_left_style1
-
-const val YELLOW_COLOR_STYLE_ID = "yellow_style_id"
-private const val YELLOW_COLOR_STYLE_NAME_RESOURCE_ID = R.string.yellow_style_name
-//private const val RED_COLOR_STYLE_ICON_ID = R.drawable.complication_left_style1
-
-const val BLUE_COLOR_STYLE_ID = "blue_style_id"
-private const val BLUE_COLOR_STYLE_NAME_RESOURCE_ID = R.string.blue_style_name
-//private const val GREEN_COLOR_STYLE_ICON_ID = R.drawable.complication_left_style1
-
 /**
  * 相册表盘的样式
  */
@@ -54,7 +33,6 @@ private const val TWO_STYLE_NAME_RESOURCE_ID = R.string.two_style_name
 const val THREE_STYLE_ID = "three_style_id"
 private const val THREE_STYLE_NAME_RESOURCE_ID = R.string.three_style_name
 
-
 /**
  * Represents watch face color style options the user can select (includes the unique id, the
  * complication style resource id, and general watch face color style resource ids).
@@ -64,7 +42,7 @@ private const val THREE_STYLE_NAME_RESOURCE_ID = R.string.three_style_name
  * renderer will use these resources to render the actual colors and ComplicationDrawables of the
  * watch face.
  */
-enum class ColorStyleIdAndResourceIds(
+enum class StyleIdAndResourceIds(
     val id: String,
     @StringRes val nameResourceId: Int,
     @DrawableRes val watchFaceStyle: Int,
@@ -92,9 +70,8 @@ enum class ColorStyleIdAndResourceIds(
         /**
          * Translates the string id to the correct ColorStyleIdAndResourceIds object.
          */
-        fun getColorStyleConfig(id: String): ColorStyleIdAndResourceIds {
+        fun getStyleConfig(id: String): StyleIdAndResourceIds {
             return when (id) {
-//                AMBIENT.id -> AMBIENT
                 STYLE1.id -> STYLE1
                 STYLE2.id -> STYLE2
                 STYLE3.id -> STYLE3
@@ -108,13 +85,13 @@ enum class ColorStyleIdAndResourceIds(
          * options for the user to select a style.
          */
         fun toOptionList(context: Context): List<ListUserStyleSetting.ListOption> {
-            val colorStyleIdAndResourceIdsList = enumValues<ColorStyleIdAndResourceIds>()
+            val styleIdAndResourceIdsList = enumValues<StyleIdAndResourceIds>()
 
-            return colorStyleIdAndResourceIdsList.map { colorStyleIdAndResourceIds ->
+            return styleIdAndResourceIdsList.map { styleIdAndResourceIds ->
                 ListUserStyleSetting.ListOption(
-                    UserStyleSetting.Option.Id(colorStyleIdAndResourceIds.id),
+                    UserStyleSetting.Option.Id(styleIdAndResourceIds.id),
                     context.resources,
-                    colorStyleIdAndResourceIds.nameResourceId,
+                    styleIdAndResourceIds.nameResourceId,
                     null
                 )
             }

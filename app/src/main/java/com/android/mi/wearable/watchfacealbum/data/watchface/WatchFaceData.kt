@@ -1,4 +1,6 @@
-package com.android.mi.wearable.watchface5.data.watchface
+package com.android.mi.wearable.watchfacealbum.data.watchface
+
+import com.android.mi.wearable.watchfacealbum.data.watchface.StyleIdAndResourceIds
 
 
 /**
@@ -22,5 +24,5 @@ const val BLOOD_OXYGEN = 6
 
 
 data class WatchFaceData(
-    val activeColorStyle: ColorStyleIdAndResourceIds = ColorStyleIdAndResourceIds.STYLE1,
+    val activeStyle: StyleIdAndResourceIds = StyleIdAndResourceIds.STYLE1,
 )

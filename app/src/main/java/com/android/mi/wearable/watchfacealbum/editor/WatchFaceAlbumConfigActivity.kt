@@ -1,13 +1,13 @@
-package com.android.mi.wearable.watchface5.editor
+package com.android.mi.wearable.watchfacealbum.editor
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
-import com.android.mi.wearable.watchface5.data.watchface.ColorStyleIdAndResourceIds
+import com.android.mi.wearable.watchfacealbum.data.watchface.StyleIdAndResourceIds
 import com.android.mi.wearable.watchface5.databinding.ActivityWatchFaceConfig5Binding
-import com.android.mi.wearable.watchface5.utils.BitmapTranslateUtils
+import com.android.mi.wearable.watchfacealbum.utils.BitmapTranslateUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 interface IComplicationClick {
@@ -36,13 +36,13 @@ class WatchFace5ConfigActivity : ComponentActivity(), IComplicationClick {
 
 
     override fun onColorPagerChange(isUp: Boolean){
-        val colorStyleIdAndResourceIdsList = enumValues<ColorStyleIdAndResourceIds>()
+        val colorStyleIdAndResourceIdsList = enumValues<StyleIdAndResourceIds>()
         currentColorPosition = if (isUp){
             if (currentColorPosition == 2) 2 else (currentColorPosition + 1)
         }else{
             if (currentColorPosition == 0) 0 else (currentColorPosition - 1)
         }
-        val newColorStyle: ColorStyleIdAndResourceIds = colorStyleIdAndResourceIdsList[currentColorPosition]
+        val newColorStyle: StyleIdAndResourceIds = colorStyleIdAndResourceIdsList[currentColorPosition]
         stateHolder.setColorStyle(newColorStyle.id)
     }
 

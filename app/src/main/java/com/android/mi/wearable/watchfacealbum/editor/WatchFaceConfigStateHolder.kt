@@ -1,4 +1,4 @@
-package com.android.mi.wearable.watchface5.editor
+package com.android.mi.wearable.watchfacealbum.editor
 
 import android.graphics.Bitmap
 import android.util.Log
@@ -11,8 +11,8 @@ import androidx.wear.watchface.style.UserStyle
 import androidx.wear.watchface.style.UserStyleSchema
 import androidx.wear.watchface.style.UserStyleSetting
 import androidx.wear.watchface.style.WatchFaceLayer
-import com.android.mi.wearable.watchface5.utils.COLOR_STYLE_SETTING
-import com.android.mi.wearable.watchface5.utils.SHAPE_STYLE_SETTING
+import com.android.mi.wearable.watchfacealbum.utils.STYLE_SETTING
+import com.android.mi.wearable.watchfacealbum.utils.SHAPE_STYLE_SETTING
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
@@ -58,7 +58,7 @@ class WatchFaceConfigStateHolder (
         // Loops through user styles and retrieves user editable styles.
         for (setting in userStyleSchema.userStyleSettings) {
             when (setting.id.toString()) {
-                COLOR_STYLE_SETTING -> {
+                STYLE_SETTING -> {
                     colorStyleKey = setting as UserStyleSetting.ListUserStyleSetting
                 }
 //
@@ -124,7 +124,7 @@ class WatchFaceConfigStateHolder (
         // Loops over all UserStyleSettings (basically the keys in the map) to find the setting for
         // the color style (which contains all the possible options for that style setting).
         for (userStyleSetting in userStyleSettingList) {
-            if (userStyleSetting.id == UserStyleSetting.Id(COLOR_STYLE_SETTING)) {
+            if (userStyleSetting.id == UserStyleSetting.Id(STYLE_SETTING)) {
                 val colorUserStyleSetting =
                     userStyleSetting as UserStyleSetting.ListUserStyleSetting
 

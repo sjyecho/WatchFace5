@@ -1,7 +1,7 @@
-package com.android.mi.wearable.watchface5.utils
-import android.util.Log
+package com.android.mi.wearable.watchfacealbum.utils
 import com.android.mi.wearable.watchface5.R
-import com.android.mi.wearable.watchface5.data.watchface.*
+import com.android.mi.wearable.watchfacealbum.data.watchface.StyleIdAndResourceIds
+import com.android.mi.wearable.watchfacealbum.data.watchface.TYPE_1
 import java.util.*
 
 object BitmapTranslateUtils {
@@ -188,9 +188,9 @@ object BitmapTranslateUtils {
 
     fun currentColorItemPosition(id: String): Int {
         return when (id) {
-            ColorStyleIdAndResourceIds.STYLE1.id -> 0
-            ColorStyleIdAndResourceIds.STYLE2.id -> 1
-            ColorStyleIdAndResourceIds.STYLE3.id -> 2
+            StyleIdAndResourceIds.STYLE1.id -> 0
+            StyleIdAndResourceIds.STYLE2.id -> 1
+            StyleIdAndResourceIds.STYLE3.id -> 2
             else -> 0
         }
     }

@@ -1,4 +1,4 @@
-package com.android.mi.wearable.watchface5.editor
+package com.android.mi.wearable.watchfacealbum.editor
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.android.mi.wearable.watchface5.R
 
-class HorizontalPagerAdapter (private val listener: IComplicationClick,val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HorizontalPagerAdapter (private val listener: IComplicationClick, val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mCurrentItem: Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0){

@@ -1,7 +1,6 @@
-package com.android.mi.wearable.watchface5.view
+package com.android.mi.wearable.watchfacealbum.view
 
 import android.content.Context
-import android.content.Intent
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -10,8 +9,8 @@ import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.core.content.res.use
 import com.android.mi.wearable.watchface5.R
-import com.android.mi.wearable.watchface5.editor.IComplicationClick
-import com.android.mi.wearable.watchface5.editor.WatchFace5ConfigActivity
+import com.android.mi.wearable.watchfacealbum.editor.IComplicationClick
+import com.android.mi.wearable.watchfacealbum.editor.WatchFace5ConfigActivity
 import kotlin.math.abs
 
 class SlideHandleView @JvmOverloads constructor(

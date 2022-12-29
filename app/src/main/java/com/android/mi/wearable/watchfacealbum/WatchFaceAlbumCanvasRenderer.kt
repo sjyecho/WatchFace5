@@ -1,4 +1,4 @@
-package com.android.mi.wearable.watchface5
+package com.android.mi.wearable.watchfacealbum
 
 import android.content.Context
 import android.content.Intent
@@ -11,10 +11,10 @@ import androidx.wear.watchface.*
 import androidx.wear.watchface.style.CurrentUserStyleRepository
 import androidx.wear.watchface.style.UserStyle
 import androidx.wear.watchface.style.UserStyleSetting
-import com.android.mi.wearable.watchface5.data.watchface.*
-import com.android.mi.wearable.watchface5.utils.BitmapTranslateUtils
-import com.android.mi.wearable.watchface5.utils.COLOR_STYLE_SETTING
-import com.android.mi.wearable.watchface5.utils.SHAPE_STYLE_SETTING
+import com.android.mi.wearable.watchface5.R
+import com.android.mi.wearable.watchfacealbum.data.watchface.*
+import com.android.mi.wearable.watchfacealbum.utils.BitmapTranslateUtils
+import com.android.mi.wearable.watchfacealbum.utils.STYLE_SETTING
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -70,12 +70,12 @@ class WatchFace3CanvasRenderer(
         // Loops through user style and applies new values to watchFaceData.
         for (options in userStyle) {
             when (options.key.id.toString()) {
-                COLOR_STYLE_SETTING -> {
+                STYLE_SETTING -> {
                     val listOption = options.value as
                             UserStyleSetting.ListUserStyleSetting.ListOption
 
                     newWatchFaceData = newWatchFaceData.copy(
-                        activeColorStyle = ColorStyleIdAndResourceIds.getColorStyleConfig(
+                        activeStyle = StyleIdAndResourceIds.getStyleConfig(
                             listOption.id.toString()
                         )
                     )
@@ -122,7 +122,7 @@ class WatchFace3CanvasRenderer(
         //判断当前是否息屏模式
         val drawAmbient = renderParameters.drawMode == DrawMode.AMBIENT
         //绘制息屏模式的背景
-        val bgAmbientBitmap = BitmapFactory.decodeResource(context.resources,R.drawable.ambent_bg)
+        val bgAmbientBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ambent_bg)
         //绘制背景图片
         //draw background
         val ambientBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.background)
@@ -144,21 +144,21 @@ class WatchFace3CanvasRenderer(
         //绘制当前的电量
         val batteryRes = BitmapTranslateUtils.currentBatteryPercentToRes(batteryPct)
         val batteryBitmap = BitmapFactory.decodeResource(context.resources,batteryRes)
-        if (watchFaceData.activeColorStyle.watchFaceStyle == TYPE_1){
+        if (watchFaceData.activeStyle.watchFaceStyle == TYPE_1){
             canvas.drawBitmap(batteryBitmap, 313.88f, 144.37f, clockPaint)
-        }else if(watchFaceData.activeColorStyle.watchFaceStyle == TYPE_3){
+        }else if(watchFaceData.activeStyle.watchFaceStyle == TYPE_3){
             canvas.drawBitmap(batteryBitmap, 383.01f, 244.44f, clockPaint)
         }
 
         //绘制日期的样式
-        val data = BitmapTranslateUtils.currentMonthAndDayStyle1(watchFaceData.activeColorStyle.watchFaceStyle)
+        val data = BitmapTranslateUtils.currentMonthAndDayStyle1(watchFaceData.activeStyle.watchFaceStyle)
         //获取月份高位，低位，分隔符，日期高位，低位
         val monthTen = BitmapFactory.decodeResource(context.resources,data[0])
         val monthBit = BitmapFactory.decodeResource(context.resources,data[1])
         val dataSpit = BitmapFactory.decodeResource(context.resources,data[2])
         val dayTen = BitmapFactory.decodeResource(context.resources,data[3])
         val dayBit = BitmapFactory.decodeResource(context.resources,data[4])
-        when (watchFaceData.activeColorStyle.watchFaceStyle) {
+        when (watchFaceData.activeStyle.watchFaceStyle) {
             TYPE_1 -> {
                 //绘制月份高位
                 canvas.drawBitmap(monthTen, 209.57f, 144.19f, clockPaint)
@@ -198,7 +198,7 @@ class WatchFace3CanvasRenderer(
         }
 
         //绘制time的样式
-        val mTime = BitmapTranslateUtils.currentHourAndMinuteStyle1(watchFaceData.activeColorStyle.watchFaceStyle)
+        val mTime = BitmapTranslateUtils.currentHourAndMinuteStyle1(watchFaceData.activeStyle.watchFaceStyle)
         //获取小时的十位，小时的个位，冒号，分钟的十位，分钟的个位
         val hourTen = BitmapFactory.decodeResource(context.resources, mTime[0])
         val hourBit = BitmapFactory.decodeResource(context.resources, mTime[1])
@@ -207,7 +207,7 @@ class WatchFace3CanvasRenderer(
         val minuteBit = BitmapFactory.decodeResource(context.resources, mTime[4])
         //绘制小时的十位，个位，冒号，分钟的十位，分钟的个位
         //绘制时间的位置，根据表盘的style处理
-        when (watchFaceData.activeColorStyle.watchFaceStyle) {
+        when (watchFaceData.activeStyle.watchFaceStyle) {
             TYPE_1 -> {
                 canvas.drawBitmap(hourTen, 83.35f, 84.86f, clockPaint)
                 canvas.drawBitmap(hourBit, 151.74f, 84.86f, clockPaint)
@@ -231,7 +231,7 @@ class WatchFace3CanvasRenderer(
         //绘制星期
         val weekRes = BitmapTranslateUtils.currentWeekdayStyle1()
         val weekBitmap = BitmapFactory.decodeResource(context.resources,weekRes)
-        when (watchFaceData.activeColorStyle.watchFaceStyle) {
+        when (watchFaceData.activeStyle.watchFaceStyle) {
             TYPE_1 -> {
                 canvas.drawBitmap(weekBitmap, 126.54f, 143.1f, clockPaint)
             }

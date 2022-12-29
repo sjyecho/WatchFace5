@@ -1,4 +1,4 @@
-package com.android.mi.wearable.watchface5.utils/*
+package com.android.mi.wearable.watchfacealbum.utils/*
  * Copyright 2020 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,11 +19,12 @@ import androidx.wear.watchface.style.UserStyleSchema
 import androidx.wear.watchface.style.UserStyleSetting
 import androidx.wear.watchface.style.WatchFaceLayer
 import com.android.mi.wearable.watchface5.R
-import com.android.mi.wearable.watchface5.data.watchface.ColorStyleIdAndResourceIds
+import com.android.mi.wearable.watchfacealbum.data.watchface.StyleIdAndResourceIds
 // Keys to matched content in the  the user style settings. We listen for changes to these
 // values in the renderer and if new, we will update the database and update the watch face
 // being rendered.
-const val COLOR_STYLE_SETTING = "color_style_setting"
+//相册表盘的样式
+const val STYLE_SETTING = "style_setting"
 
 const val SHAPE_STYLE_SETTING = "shape_style_setting"
 
@@ -45,12 +46,12 @@ fun createUserStyleSchema(context: Context): UserStyleSchema {
     // 1. Allows user to change the color styles of the watch face (if any are available).
     val colorShapeStyleSetting =
         UserStyleSetting.ListUserStyleSetting(
-            UserStyleSetting.Id(COLOR_STYLE_SETTING),
+            UserStyleSetting.Id(STYLE_SETTING),
             context.resources,
             R.string.colors_style_setting,
             R.string.colors_style_setting_description,
             null,
-            ColorStyleIdAndResourceIds.toOptionList(context),
+            StyleIdAndResourceIds.toOptionList(context),
             listOf(
                 WatchFaceLayer.BASE,
                 WatchFaceLayer.COMPLICATIONS,
