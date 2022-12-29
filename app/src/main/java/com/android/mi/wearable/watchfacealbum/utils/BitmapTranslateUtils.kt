@@ -196,22 +196,5 @@ object BitmapTranslateUtils {
     }
 
 
-    fun currentShapeItemPosition(id: String): Int {
-        return when (id) {
-            ShapeStyleIdAndResourceIds.CIRCLE.id -> 0
-            ShapeStyleIdAndResourceIds.SQUARE.id -> 1
-            ShapeStyleIdAndResourceIds.TRIANGLE.id -> 2
-            else -> 0
-        }
-    }
 
-
-    fun nextResId(currentId: String): String {
-        return when (currentId) {
-            ShapeStyleIdAndResourceIds.CIRCLE.id -> ShapeStyleIdAndResourceIds.SQUARE.id
-            ShapeStyleIdAndResourceIds.SQUARE.id -> ShapeStyleIdAndResourceIds.TRIANGLE.id
-            ShapeStyleIdAndResourceIds.TRIANGLE.id -> ShapeStyleIdAndResourceIds.CIRCLE.id
-            else -> ShapeStyleIdAndResourceIds.CIRCLE.id
-        }
-    }
 }

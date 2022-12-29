@@ -80,15 +80,6 @@ class WatchFace3CanvasRenderer(
                         )
                     )
                 }
-                SHAPE_STYLE_SETTING -> {
-                    val listOption = options.value as
-                            UserStyleSetting.ListUserStyleSetting.ListOption
-                    newWatchFaceData = newWatchFaceData.copy(
-                        shapeStyle = ShapeStyleIdAndResourceIds.getShapeStyleConfig(
-                            listOption.id.toString()
-                        )
-                    )
-                }
             }
 
             // Only updates if something changed.
@@ -134,8 +125,7 @@ class WatchFace3CanvasRenderer(
         val bgAmbientBitmap = BitmapFactory.decodeResource(context.resources,R.drawable.ambent_bg)
         //绘制背景图片
         //draw background
-        val ambientIndexRes = BitmapTranslateUtils.currentAmbientIndexRes(watchFaceData.shapeStyle.shapeType,watchFaceData.activeColorStyle.watchFaceStyle)
-        val ambientBitmap = BitmapFactory.decodeResource(context.resources, ambientIndexRes)
+        val ambientBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.background)
         if(drawAmbient){
             canvas.drawBitmap(bgAmbientBitmap,null,bounds,clockPaint)
         }else{

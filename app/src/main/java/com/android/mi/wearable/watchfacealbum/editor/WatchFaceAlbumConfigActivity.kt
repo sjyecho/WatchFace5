@@ -2,14 +2,10 @@ package com.android.mi.wearable.watchface5.editor
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager2.widget.ViewPager2
 import com.android.mi.wearable.watchface5.data.watchface.ColorStyleIdAndResourceIds
-import com.android.mi.wearable.watchface5.data.watchface.ShapeStyleIdAndResourceIds
 import com.android.mi.wearable.watchface5.databinding.ActivityWatchFaceConfig5Binding
 import com.android.mi.wearable.watchface5.utils.BitmapTranslateUtils
 import kotlinx.coroutines.Dispatchers
@@ -34,16 +30,10 @@ class WatchFace5ConfigActivity : ComponentActivity(), IComplicationClick {
         )
     }
 
-    override fun onStylePagerChange(isUp: Boolean){
-        val shapeStyleIdAndResourceIdsList = enumValues<ShapeStyleIdAndResourceIds>()
-        currentStylePosition = if (isUp){
-            if (currentStylePosition == 2) 2 else (currentStylePosition + 1)
-        }else{
-            if (currentStylePosition == 0) 0 else (currentStylePosition - 1)
-        }
-        val newColorStyle: ShapeStyleIdAndResourceIds = shapeStyleIdAndResourceIdsList[currentStylePosition]
-        stateHolder.setShapeStyle(newColorStyle.id)
+    override fun onStylePagerChange(isUp: Boolean) {
+        TODO("Not yet implemented")
     }
+
 
     override fun onColorPagerChange(isUp: Boolean){
         val colorStyleIdAndResourceIdsList = enumValues<ColorStyleIdAndResourceIds>()
@@ -99,9 +89,7 @@ class WatchFace5ConfigActivity : ComponentActivity(), IComplicationClick {
         if (isFirst){
             isFirst = false
             currentColorId = userStylesAndPreview.colorStyleId
-            currentStyleId = userStylesAndPreview.shapeStyleId
             currentColorPosition = BitmapTranslateUtils.currentColorItemPosition(currentColorId)
-            currentStylePosition = BitmapTranslateUtils.currentShapeItemPosition(currentStyleId)
             initHorizontalViewPager()
         }
     }

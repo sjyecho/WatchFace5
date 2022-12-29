@@ -88,13 +88,6 @@ class SlideHandleView @JvmOverloads constructor(
                         listener.onStylePagerChange(isUp)
                     }
                 }
-
-//                var intent = Class.forName(leftDestinationName)
-//                if (isLeft && isFar && !isTooFast) {
-//                    mLastLaunchTime = System.currentTimeMillis()
-//                    val intent = Intent(context, intent)
-//                    context.startActivity(intent)
-//                }
             }
         }
         return true

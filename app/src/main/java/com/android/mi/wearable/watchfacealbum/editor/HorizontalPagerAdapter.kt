@@ -1,24 +1,18 @@
 package com.android.mi.wearable.watchface5.editor
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.android.mi.wearable.watchface5.R
-import kotlin.math.abs
 
 class HorizontalPagerAdapter (private val listener: IComplicationClick,val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mCurrentItem: Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0){
-            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_watch_face_config_color, parent, false)
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_album_watch_face_config_style, parent, false)
             StyleViewHolder(itemView)
         }else{
             val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_watch_face_config_style, parent, false)

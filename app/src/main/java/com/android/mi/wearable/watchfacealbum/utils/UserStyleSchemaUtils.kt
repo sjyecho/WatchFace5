@@ -20,8 +20,6 @@ import androidx.wear.watchface.style.UserStyleSetting
 import androidx.wear.watchface.style.WatchFaceLayer
 import com.android.mi.wearable.watchface5.R
 import com.android.mi.wearable.watchface5.data.watchface.ColorStyleIdAndResourceIds
-import com.android.mi.wearable.watchface5.data.watchface.ShapeStyleIdAndResourceIds
-
 // Keys to matched content in the  the user style settings. We listen for changes to these
 // values in the renderer and if new, we will update the database and update the watch face
 // being rendered.
@@ -60,26 +58,10 @@ fun createUserStyleSchema(context: Context): UserStyleSchema {
             )
         )
 
-    // 2. index shape change
-    val shapeStyleSetting =
-        UserStyleSetting.ListUserStyleSetting(
-            UserStyleSetting.Id(SHAPE_STYLE_SETTING),
-            context.resources,
-            R.string.shape_style_setting,
-            R.string.shape_style_setting_description,
-            null,
-            ShapeStyleIdAndResourceIds.toOptionList(context),
-            listOf(
-                WatchFaceLayer.BASE,
-                WatchFaceLayer.COMPLICATIONS,
-                WatchFaceLayer.COMPLICATIONS_OVERLAY
-            )
-        )
     // 4. Create style settings to hold all options.
     return UserStyleSchema(
         listOf(
             colorShapeStyleSetting,
-            shapeStyleSetting
         )
     )
 }

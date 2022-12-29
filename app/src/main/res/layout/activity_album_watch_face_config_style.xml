@@ -10,7 +10,7 @@
     tools:context=".editor.WatchFace5ConfigActivity"
     app:openSlide="true">
 
-    <!--编辑表盘界面...Color-->
+    <!--编辑表盘界面...Style-->
     <TextView
         android:id="@+id/tv_text"
         android:layout_width="match_parent"
@@ -20,16 +20,6 @@
         android:textSize="16sp"
         android:text="Style"
         />
-
-<!--    <androidx.viewpager2.widget.ViewPager2-->
-<!--        android:id="@+id/vp_color"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:visibility="gone"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
 
 
 </com.android.mi.wearable.watchface5.view.SlideHandleView>

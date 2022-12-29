@@ -1,7 +1,6 @@
 package com.android.mi.wearable.watchface5.editor
 
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.wear.watchface.DrawMode
@@ -112,11 +111,9 @@ class WatchFaceConfigStateHolder (
         )
 
         val colorStyle = userStyle[colorStyleKey] as UserStyleSetting.ListUserStyleSetting.ListOption
-        val shapeStyle = userStyle[shapeStyleKey] as UserStyleSetting.ListUserStyleSetting.ListOption
 
         return UserStylesAndPreview(
             colorStyleId = colorStyle.id.toString(),
-            shapeStyleId = shapeStyle.id.toString(),
             previewImage = bitmap
         )
     }
@@ -192,7 +189,6 @@ class WatchFaceConfigStateHolder (
 
     data class UserStylesAndPreview(
         val colorStyleId: String,
-        val shapeStyleId: String,
         val previewImage: Bitmap
     )
 
