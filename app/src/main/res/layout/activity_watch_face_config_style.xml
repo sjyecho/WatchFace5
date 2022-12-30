@@ -18,7 +18,7 @@
         android:gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:textSize="16sp"
-        android:text="Style"
+        android:text="Complication"
         />
 
     <!--    <androidx.viewpager2.widget.ViewPager2-->

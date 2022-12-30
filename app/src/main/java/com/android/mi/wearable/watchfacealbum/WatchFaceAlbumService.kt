@@ -4,6 +4,7 @@ import android.view.SurfaceHolder
 import androidx.wear.watchface.*
 import androidx.wear.watchface.style.CurrentUserStyleRepository
 import androidx.wear.watchface.style.UserStyleSchema
+import com.android.mi.wearable.watchfacealbum.utils.createComplicationSlotManager
 import com.android.mi.wearable.watchfacealbum.utils.createUserStyleSchema
 
 class WatchFaceAlbumService : WatchFaceService(){
@@ -11,6 +12,12 @@ class WatchFaceAlbumService : WatchFaceService(){
 
     override fun createUserStyleSchema(): UserStyleSchema = createUserStyleSchema(context = applicationContext)
 
+    override fun createComplicationSlotsManager(currentUserStyleRepository: CurrentUserStyleRepository): ComplicationSlotsManager {
+        return createComplicationSlotManager(
+            context = applicationContext,
+            currentUserStyleRepository = currentUserStyleRepository
+        )
+    }
     override suspend fun createWatchFace(
         surfaceHolder: SurfaceHolder,
         watchState: WatchState,

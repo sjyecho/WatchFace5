@@ -33,6 +33,13 @@ private const val TWO_STYLE_NAME_RESOURCE_ID = R.string.two_style_name
 const val THREE_STYLE_ID = "three_style_id"
 private const val THREE_STYLE_NAME_RESOURCE_ID = R.string.three_style_name
 
+//指针的样式
+const val FOUR_STYLE_ID = "four_style_id"
+private const val FOUR_STYLE_NAME_RESOURCE_ID = R.string.four_style_name
+
+const val FIVE_STYLE_ID = "five_style_id"
+private const val FIVE_STYLE_NAME_RESOURCE_ID = R.string.five_style_name
+
 /**
  * Represents watch face color style options the user can select (includes the unique id, the
  * complication style resource id, and general watch face color style resource ids).
@@ -46,25 +53,92 @@ enum class StyleIdAndResourceIds(
     val id: String,
     @StringRes val nameResourceId: Int,
     @DrawableRes val watchFaceStyle: Int,
-) {
+    //小组件的位置
+    @DrawableRes val complicationTopStyleDrawableId : Int,
+    @DrawableRes val complicationBottomStyleDrawableId : Int,
+
+    //指针的样式
+    /**
+     * TODO 指针的样式
+     */
+    @DrawableRes val hourHand:Int,
+    @DrawableRes val minuteHand:Int,
+    @DrawableRes val secondHand:Int
+
+    ) {
     //相册表盘样式
     STYLE1(
         id = ONE_STYLE_ID,
         nameResourceId = ONE_STYLE_NAME_RESOURCE_ID,
         watchFaceStyle = TYPE_1,
+        //表盘样式
+        complicationTopStyleDrawableId = R.drawable.complication_left_style1,
+        complicationBottomStyleDrawableId = R.drawable.complication_left_style1,
+
+        //指针 0表示当前没有
+        hourHand = -1,
+        minuteHand = -1,
+        secondHand = -1
     ),
 
     STYLE2(
         id = TWO_STYLE_ID,
         nameResourceId = TWO_STYLE_NAME_RESOURCE_ID,
         watchFaceStyle = TYPE_2,
+
+        complicationTopStyleDrawableId = R.drawable.complication_left_style1,
+        complicationBottomStyleDrawableId = R.drawable.complication_left_style1,
+
+        //指针 0表示当前没有
+        hourHand = -1,
+        minuteHand = -1,
+        secondHand = -1
     ),
 
     STYLE3(
         id = THREE_STYLE_ID,
         nameResourceId = THREE_STYLE_NAME_RESOURCE_ID,
-        watchFaceStyle = TYPE_3
+        watchFaceStyle = TYPE_3,
+
+        complicationTopStyleDrawableId = R.drawable.complication_left_style1,
+        complicationBottomStyleDrawableId = R.drawable.complication_left_style1,
+        //指针 0表示当前没有
+        hourHand = -1,
+        minuteHand = -1,
+        secondHand = -1
+    ),
+
+    STYLE4(
+        id = FOUR_STYLE_ID,
+        nameResourceId = FOUR_STYLE_NAME_RESOURCE_ID,
+        watchFaceStyle = TYPE_4,
+
+        complicationTopStyleDrawableId = R.drawable.complication_left_style1,
+        complicationBottomStyleDrawableId = R.drawable.complication_left_style1,
+
+        //指针
+        hourHand = R.drawable.hour_ambient1,
+        minuteHand = R.drawable.minute_ambient1,
+        secondHand = R.drawable.seconds_circle_hand
+    ),
+
+    STYLE5(
+        id = FIVE_STYLE_ID,
+        nameResourceId = FIVE_STYLE_NAME_RESOURCE_ID,
+        watchFaceStyle = TYPE_5,
+
+        complicationTopStyleDrawableId = R.drawable.complication_left_style1,
+        complicationBottomStyleDrawableId = R.drawable.complication_left_style1,
+
+        //指针
+        hourHand = R.drawable.hour_ambient2,
+        minuteHand = R.drawable.minute_ambient2,
+        secondHand = R.drawable.seconds_circle_hand
+
     );
+
+
+
 
     companion object {
         /**
@@ -75,6 +149,9 @@ enum class StyleIdAndResourceIds(
                 STYLE1.id -> STYLE1
                 STYLE2.id -> STYLE2
                 STYLE3.id -> STYLE3
+                //指针
+                STYLE4.id -> STYLE4
+                STYLE5.id -> STYLE5
                 else -> STYLE1
             }
         }

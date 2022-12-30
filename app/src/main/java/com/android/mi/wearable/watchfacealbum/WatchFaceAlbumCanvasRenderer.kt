@@ -7,25 +7,31 @@ import android.graphics.*
 import android.os.BatteryManager
 import android.util.Log
 import android.view.SurfaceHolder
+import androidx.core.graphics.withRotation
+import androidx.core.graphics.withScale
 import androidx.wear.watchface.*
+import androidx.wear.watchface.complications.data.NoDataComplicationData
+import androidx.wear.watchface.complications.data.RangedValueComplicationData
+import androidx.wear.watchface.complications.data.ShortTextComplicationData
 import androidx.wear.watchface.style.CurrentUserStyleRepository
 import androidx.wear.watchface.style.UserStyle
 import androidx.wear.watchface.style.UserStyleSetting
 import com.android.mi.wearable.watchface5.R
 import com.android.mi.wearable.watchfacealbum.data.watchface.*
 import com.android.mi.wearable.watchfacealbum.utils.BitmapTranslateUtils
+import com.android.mi.wearable.watchfacealbum.utils.LEFT_COMPLICATION_ID
+import com.android.mi.wearable.watchfacealbum.utils.RIGHT_COMPLICATION_ID
 import com.android.mi.wearable.watchfacealbum.utils.STYLE_SETTING
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import java.time.Duration
 import java.time.ZonedDateTime
+import kotlin.math.abs
 
 
-// Default for how long each frame is displayed at expected frame rate.
 private const val FRAME_PERIOD_MS_DEFAULT: Long = 16L
-//private const val DEFAULT_COMPLICATION_STYLE_DRAWABLE_ID = R.drawable.complication_red_style
-//private const val DEFAULT_COMPLICATION_STYLE_DRAWABLE_ID_TEST = R.drawable.complication_left_style1
 class WatchFace3CanvasRenderer(
     private val context: Context,
     surfaceHolder: SurfaceHolder,
@@ -112,7 +118,12 @@ class WatchFace3CanvasRenderer(
         sharedAssets: AnalogSharedAssets
     ) {
        // drawBackground(canvas,bounds,zonedDateTime)
+
         drawLayoutStyle1(canvas,bounds,zonedDateTime)
+        if (watchFaceData.activeStyle.watchFaceStyle == TYPE_4||watchFaceData.activeStyle.watchFaceStyle == TYPE_5){
+            drawClockHands(canvas,bounds,zonedDateTime)
+        }
+
 //        if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.COMPLICATIONS_OVERLAY)) {
 //            drawClockHands(canvas, bounds, zonedDateTime)
 //        }
@@ -130,6 +141,7 @@ class WatchFace3CanvasRenderer(
             canvas.drawBitmap(bgAmbientBitmap,null,bounds,clockPaint)
         }else{
             canvas.drawBitmap(ambientBitmap,null,bounds,clockPaint)
+            drawComplications(canvas, bounds, time)
         }
         //绘制电池的样式
         //获取当前的电池电量
@@ -245,6 +257,89 @@ class WatchFace3CanvasRenderer(
 
     }
 
+    private fun drawClockHands(canvas: Canvas, bounds: Rect, zonedDateTime: ZonedDateTime) {
+        //adjust bounds size
+        val drawAmbient = renderParameters.drawMode == DrawMode.AMBIENT
+        //绘制息屏模式的背景
+        val bgAmbientBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ambent_bg)
+        //绘制背景图片
+        //draw background
+        val ambientBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.background)
+        if(drawAmbient){
+            canvas.drawBitmap(bgAmbientBitmap,null,bounds,clockPaint)
+        }else{
+            canvas.drawBitmap(ambientBitmap,null,bounds,clockPaint)
+            drawComplications(canvas, bounds, zonedDateTime)
+        }
+        // Retrieve current time to calculate location/rotation of watch arms.
+        val secondOfDay = zonedDateTime.toLocalTime().toSecondOfDay()
+
+        // Determine the rotation of the hour and minute hand.
+
+        // Determine how many seconds it takes to make a complete rotation for each hand
+        // It takes the hour hand 12 hours to make a complete rotation
+        val secondsPerHourHandRotation = Duration.ofHours(12).seconds
+        // It takes the minute hand 1 hour to make a complete rotation
+        val secondsPerMinuteHandRotation = Duration.ofHours(1).seconds
+
+        // Determine the angle to draw each hand expressed as an angle in degrees from 0 to 360
+        // Since each hand does more than one cycle a day, we are only interested in the remainder
+        // of the secondOfDay modulo the hand interval
+        val hourRotation = secondOfDay.rem(secondsPerHourHandRotation) * 360.0f /
+                secondsPerHourHandRotation
+        val minuteRotation = secondOfDay.rem(secondsPerMinuteHandRotation) * 360.0f /
+                secondsPerMinuteHandRotation
+
+        val hourHand = watchFaceData.activeStyle.hourHand
+        val minuteHand =  watchFaceData.activeStyle.minuteHand
+        val hourHandBitmap = BitmapFactory.decodeResource(context.resources,hourHand)
+        val minuteHandBitmap = BitmapFactory.decodeResource(context.resources,minuteHand)
+        canvas.withScale(
+            x = WATCH_HAND_SCALE,
+            y = WATCH_HAND_SCALE,
+            pivotX = bounds.exactCenterX(),
+            pivotY = bounds.exactCenterY()
+        ) {
+            // Draw hour hand.
+            canvas.withRotation(hourRotation, bounds.exactCenterX(), bounds.exactCenterY()) {
+                drawBitmap(
+                    hourHandBitmap,
+                    bounds.exactCenterX() - hourHandBitmap.width/2,
+                    bounds.exactCenterY() - hourHandBitmap.height/2
+                    , clockPaint
+                )
+            }
+            // Draw minute hand.
+            canvas.withRotation(minuteRotation, bounds.exactCenterX(), bounds.exactCenterY()) {
+                drawBitmap(
+                    minuteHandBitmap,
+                    bounds.exactCenterX() - minuteHandBitmap.width/2,
+                    bounds.exactCenterY() - minuteHandBitmap.height/2
+                    , clockPaint
+                )
+            }
+            // Draw second hand if not in ambient mode
+            if (!drawAmbient) {
+                //clockHandPaint.color = watchFaceColors.activeSecondaryColor
+                // Second hand has a different color style (secondary color) and is only drawn in
+                // active mode, so we calculate it here (not above with others).
+                val secondsPerSecondHandRotation = Duration.ofMinutes(1).seconds
+                val secondsRotation = secondOfDay.rem(secondsPerSecondHandRotation) * 360.0f /
+                        secondsPerSecondHandRotation
+                val secondHand = watchFaceData.activeStyle.secondHand
+                val secondHandBitmap = BitmapFactory.decodeResource(context.resources, secondHand)
+                canvas.withRotation(secondsRotation, bounds.exactCenterX(), bounds.exactCenterY()) {
+                    drawBitmap(
+                        secondHandBitmap,
+                        bounds.exactCenterX() - secondHandBitmap.width/2,
+                        bounds.exactCenterY() - secondHandBitmap.height/2
+                        , clockPaint
+                    )
+                }
+            }
+        }
+    }
+
 
     override fun renderHighlightLayer(
         canvas: Canvas,
@@ -257,6 +352,36 @@ class WatchFace3CanvasRenderer(
         for ((_, complication) in complicationSlotsManager.complicationSlots) {
             if (complication.enabled) {
                 complication.renderHighlightLayer(canvas, zonedDateTime, renderParameters)
+            }
+        }
+    }
+    // ----- All drawing functions -----
+    private fun drawComplications(canvas: Canvas, bounds: Rect,zonedDateTime: ZonedDateTime) {
+        Log.d("wjjj", "drawComplications: ")
+        for ((_, complication) in complicationSlotsManager.complicationSlots) {
+            if (complication.enabled) {
+                renderParameters.lastComplicationTapDownEvents
+                complication.render(canvas, zonedDateTime, renderParameters)
+                when (complication.complicationData.value){
+                    is RangedValueComplicationData -> {
+
+                    }
+                    is ShortTextComplicationData -> {
+                        val complicationData = complication.complicationData.value as ShortTextComplicationData
+                        val applicationIdString  = complicationData.dataSource?.packageName
+                        when (complication.id) {
+                            LEFT_COMPLICATION_ID -> {
+
+                            }
+                            RIGHT_COMPLICATION_ID -> {
+                            }
+                        }
+                    }
+                    is NoDataComplicationData -> {
+                    }
+                    else -> {
+                    }
+                }
             }
         }
     }

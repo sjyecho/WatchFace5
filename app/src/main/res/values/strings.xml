@@ -32,7 +32,8 @@
     <string name="one_style_name">One Style</string>
     <string name="two_style_name">Two Style</string>
     <string name="three_style_name">Three Style</string>
-
+    <string name="four_style_name">Four Style</string>
+    <string name="five_style_name">Five Style</string>
 
 
     <!-- Name of watchface style [CHAR LIMIT=20] -->

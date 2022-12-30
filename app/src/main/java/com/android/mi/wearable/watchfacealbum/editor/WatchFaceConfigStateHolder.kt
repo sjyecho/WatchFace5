@@ -1,6 +1,7 @@
 package com.android.mi.wearable.watchfacealbum.editor
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.wear.watchface.DrawMode
@@ -11,6 +12,9 @@ import androidx.wear.watchface.style.UserStyle
 import androidx.wear.watchface.style.UserStyleSchema
 import androidx.wear.watchface.style.UserStyleSetting
 import androidx.wear.watchface.style.WatchFaceLayer
+import com.android.mi.wearable.watchface5.R
+import com.android.mi.wearable.watchfacealbum.utils.LEFT_COMPLICATION_ID
+import com.android.mi.wearable.watchfacealbum.utils.RIGHT_COMPLICATION_ID
 import com.android.mi.wearable.watchfacealbum.utils.STYLE_SETTING
 import com.android.mi.wearable.watchfacealbum.utils.SHAPE_STYLE_SETTING
 import kotlinx.coroutines.*
@@ -27,7 +31,9 @@ class WatchFaceConfigStateHolder (
 
     // Keys from Watch Face Data Structure
     private lateinit var shapeStyleKey: UserStyleSetting.ListUserStyleSetting
-//    var pageType: Int = 0
+
+    //complication在页面二
+    var pageType: Int = 0
     val uiState: StateFlow<EditWatchFaceUiState> =
         flow<EditWatchFaceUiState> {
             editorSession = EditorSession.createOnWatchEditorSession(
@@ -76,17 +82,17 @@ class WatchFaceConfigStateHolder (
     }
 
 
-    fun createWatchFacePreview(): Bitmap{
-//        val highlightLayer = if (showHighlightLayer) RenderParameters.HighlightLayer(
-//            RenderParameters.HighlightedElement.AllComplicationSlots,
-//            activity.getColor(R.color.complication_border), // Red complication highlight.
-//            Color.argb(128, 0, 0, 0) // Darken everything else.
-//        ) else null
+    fun createWatchFacePreview(showHighlightLayer:Boolean): Bitmap{
+        val highlightLayer = if (showHighlightLayer) RenderParameters.HighlightLayer(
+            RenderParameters.HighlightedElement.AllComplicationSlots,
+            activity.getColor(R.color.complication_border), // Red complication highlight.
+            Color.argb(128, 0, 0, 0) // Darken everything else.
+        ) else null
         return editorSession.renderWatchFaceToBitmap(
             RenderParameters(
                 DrawMode.INTERACTIVE,
                 WatchFaceLayer.ALL_WATCH_FACE_LAYERS,
-                null
+                highlightLayer
             ),
             editorSession.previewReferenceInstant,
             editorSession.complicationsPreviewData.value
@@ -100,11 +106,20 @@ class WatchFaceConfigStateHolder (
         userStyle: UserStyle,
         complicationsPreviewData: Map<Int, ComplicationData>
     ): UserStylesAndPreview {
+
+        //高亮显示
+        val highlightLayer = if(pageType == 1) RenderParameters.HighlightLayer(
+            RenderParameters.HighlightedElement.AllComplicationSlots,
+            activity.getColor(R.color.complication_border),
+            Color.argb(128,0,0,0)
+
+        )else null
+
         val bitmap = editorSession.renderWatchFaceToBitmap(
             RenderParameters(
                 DrawMode.INTERACTIVE,
                 WatchFaceLayer.ALL_WATCH_FACE_LAYERS,
-                null
+                highlightLayer
             ),
             editorSession.previewReferenceInstant,
             complicationsPreviewData
@@ -116,6 +131,25 @@ class WatchFaceConfigStateHolder (
             colorStyleId = colorStyle.id.toString(),
             previewImage = bitmap
         )
+    }
+
+    //放置complication
+    fun setComplication(complicationLocation: Int){
+        val complicationSlotId = when (complicationLocation){
+            LEFT_COMPLICATION_ID -> {
+                LEFT_COMPLICATION_ID
+            }
+            RIGHT_COMPLICATION_ID -> {
+                RIGHT_COMPLICATION_ID
+            }
+            else -> {
+                return
+            }
+        }
+        scope.launch (Dispatchers.Main.immediate){
+            editorSession.openComplicationDataSourceChooser(complicationSlotId)
+        }
+
     }
 
 

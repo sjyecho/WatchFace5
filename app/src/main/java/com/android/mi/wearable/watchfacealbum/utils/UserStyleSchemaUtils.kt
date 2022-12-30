@@ -28,10 +28,6 @@ const val STYLE_SETTING = "style_setting"
 
 const val SHAPE_STYLE_SETTING = "shape_style_setting"
 
-//相册表盘的style
-const val POSITION_STYLE_SETTING = "position_style_setting"
-
-
 
 //const val DRAW_HOUR_PIPS_STYLE_SETTING = "draw_hour_pips_style_setting"
 //const val WATCH_HAND_LENGTH_STYLE_SETTING = "watch_hand_length_style_setting"
@@ -44,7 +40,7 @@ const val POSITION_STYLE_SETTING = "position_style_setting"
 fun createUserStyleSchema(context: Context): UserStyleSchema {
     //相册表盘对于位置样式的选择
     // 1. Allows user to change the color styles of the watch face (if any are available).
-    val colorShapeStyleSetting =
+    val styleSetting =
         UserStyleSetting.ListUserStyleSetting(
             UserStyleSetting.Id(STYLE_SETTING),
             context.resources,
@@ -62,7 +58,7 @@ fun createUserStyleSchema(context: Context): UserStyleSchema {
     // 4. Create style settings to hold all options.
     return UserStyleSchema(
         listOf(
-            colorShapeStyleSetting,
+            styleSetting,
         )
     )
 }

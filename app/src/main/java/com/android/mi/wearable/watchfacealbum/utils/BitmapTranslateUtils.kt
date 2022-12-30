@@ -1,5 +1,6 @@
 package com.android.mi.wearable.watchfacealbum.utils
 import com.android.mi.wearable.watchface5.R
+import com.android.mi.wearable.watchfacealbum.data.watchface.BATTERY
 import com.android.mi.wearable.watchfacealbum.data.watchface.StyleIdAndResourceIds
 import com.android.mi.wearable.watchfacealbum.data.watchface.TYPE_1
 import java.util.*
@@ -166,35 +167,29 @@ object BitmapTranslateUtils {
         return drawableResArray
     }
 
-
-
-
-
-
-
-
-
-    fun currentAmbientIndexRes(indexType: Int, watchType: Int): Int {
-//        return when (indexType) {
-//            CIRCLE_TYPE -> if (watchType == TYPE_1) R.drawable.ambient_circle_index1 else R.drawable.ambient_circle_index2
-//            SQUARE_TYPE -> if (watchType == TYPE_1) R.drawable.ambient_square_index1 else R.drawable.ambient_square_index2
-//            TRIANGLE_TYPE -> if (watchType == TYPE_1) R.drawable.ambient_triangle_index1 else R.drawable.ambient_triangle_index2
-//            else -> if (watchType == TYPE_1) R.drawable.ambient_circle_index1 else R.drawable.ambient_circle_index2
-//        }
-        return R.drawable.background
-    }
-
-
-
+//判断当前style
     fun currentColorItemPosition(id: String): Int {
         return when (id) {
             StyleIdAndResourceIds.STYLE1.id -> 0
             StyleIdAndResourceIds.STYLE2.id -> 1
             StyleIdAndResourceIds.STYLE3.id -> 2
+            StyleIdAndResourceIds.STYLE4.id ->3
+            StyleIdAndResourceIds.STYLE5.id ->4
             else -> 0
         }
     }
 
+    fun currentFunctionStyle(watchFaceStyle: Int, funcType: Int): Int {
+        when (watchFaceStyle) {
+            TYPE_1 -> {
+                return when (funcType) {
+                    BATTERY -> R.drawable.camera_wf_style1_battery_icon_0
+                    else -> 0
+                }
+            }
+        }
+        return 0
+    }
 
 
 }

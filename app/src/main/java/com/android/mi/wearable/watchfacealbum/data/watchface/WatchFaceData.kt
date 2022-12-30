@@ -11,6 +11,11 @@ import com.android.mi.wearable.watchfacealbum.data.watchface.StyleIdAndResourceI
 const val TYPE_1 = 1
 const val TYPE_2 = 2
 const val TYPE_3 = 3
+
+//两个指针样式的style
+const val TYPE_4 = 4
+const val TYPE_5 = 5
+
 /**
  * complicationType
  */
@@ -21,7 +26,6 @@ const val HEART_RATE = 3
 const val CALORIE = 4
 const val WEATHER_TEMP = 5
 const val BLOOD_OXYGEN = 6
-
 
 data class WatchFaceData(
     val activeStyle: StyleIdAndResourceIds = StyleIdAndResourceIds.STYLE1,

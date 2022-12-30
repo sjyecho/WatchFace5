@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.android.mi.wearable.watchface5.R
@@ -13,10 +14,10 @@ class HorizontalPagerAdapter (private val listener: IComplicationClick, val cont
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0){
             val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_album_watch_face_config_style, parent, false)
-            StyleViewHolder(itemView)
-        }else{
-            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_watch_face_config_style, parent, false)
             ColorViewHolder(itemView)
+        }else{
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_watch_face_config_complication, parent, false)
+            ComplicationViewHolder(itemView)
 
         }
     }
@@ -52,7 +53,13 @@ class HorizontalPagerAdapter (private val listener: IComplicationClick, val cont
 //            })
 //            holder.mViewPager.currentItem = mCurrentItem
         } else {
-            val complicationViewHolder = holder as StyleViewHolder
+            val complicationViewHolder = holder as ComplicationViewHolder
+            complicationViewHolder.topBt.setOnClickListener{
+                listener.onTopClick()
+            }
+            complicationViewHolder.bottomBt.setOnClickListener{
+                listener.onBottomClick()
+            }
         }
 
     }
@@ -67,45 +74,11 @@ class HorizontalPagerAdapter (private val listener: IComplicationClick, val cont
     class ColorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
+    class ComplicationViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+        val topBt :Button = itemView.findViewById(R.id.left_complication)
+        val bottomBt : Button = itemView.findViewById(R.id.right_complication)
+    }
+
     class StyleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    }
-}
-
-class ScaleInTransformer : ViewPager2.PageTransformer {
-    private val mMinScale = DEFAULT_MIN_SCALE
-    override fun transformPage(view: View, position: Float) {
-        view.elevation = -kotlin.math.abs(position)
-        val pageWidth = view.width
-        val pageHeight = view.height
-
-        view.pivotY = (pageHeight / 2).toFloat()
-        view.pivotX = (pageWidth / 2).toFloat()
-        if (position < -1) {
-            view.scaleX = mMinScale
-            view.scaleY = mMinScale
-            view.pivotX = pageWidth.toFloat()
-        } else if (position <= 1) {
-            if (position < 0) {
-                val scaleFactor = (1 + position) * (1 - mMinScale) + mMinScale
-                view.scaleX = scaleFactor
-                view.scaleY = scaleFactor
-                view.pivotX = pageWidth * (DEFAULT_CENTER + DEFAULT_CENTER * -position)
-            } else {
-                val scaleFactor = (1 - position) * (1 - mMinScale) + mMinScale
-                view.scaleX = scaleFactor
-                view.scaleY = scaleFactor
-                view.pivotX = pageWidth * ((1 - position) * DEFAULT_CENTER)
-            }
-        } else {
-            view.pivotX = 0f
-            view.scaleX = mMinScale
-            view.scaleY = mMinScale
-        }
-    }
-
-    companion object {
-
-        const val DEFAULT_MIN_SCALE = 0.85f
-        const val DEFAULT_CENTER = 0.5f
     }
 }
